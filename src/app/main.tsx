@@ -6,12 +6,8 @@ import { App } from './App';
 
 async function enableMocking() {
   if (!env.enableMocks) return;
-  try {
-    const { startMockWorker } = await import('@/mocks/browser');
-    await startMockWorker();
-  } catch (error) {
-    console.error('Failed to start the mock API. Login will not work until the service worker is available.', error);
-  }
+  const { installAxiosMockAdapter } = await import('@/mocks/install-axios-mock');
+  installAxiosMockAdapter();
 }
 
 enableMocking().then(() => {
