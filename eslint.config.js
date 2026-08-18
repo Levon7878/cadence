@@ -20,7 +20,7 @@ const layerZones = [
 ];
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage', 'node_modules', 'public/mockServiceWorker.js'] },
+  { ignores: ['dist', 'coverage', 'node_modules', 'public/mockServiceWorker.js', 'api/catchall.js'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],

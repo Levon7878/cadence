@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosHeaders } from 'axios';
 import type { AxiosAdapter, InternalAxiosRequestConfig } from 'axios';
 import { getResponse } from 'msw';
-import { setMockAdapter } from '@/shared/api/client';
 import { handlers } from './handlers';
 
 function toFetchRequest(config: InternalAxiosRequestConfig): Request {
@@ -22,7 +21,8 @@ function toFetchRequest(config: InternalAxiosRequestConfig): Request {
   return new Request(url, init);
 }
 
-function createMockAxiosAdapter(): AxiosAdapter {
+/** Fulfill `/api` calls in-process so the SPA works on Vercel without a real backend. */
+export function createMockAxiosAdapter(): AxiosAdapter {
   return async (config) => {
     const request = toFetchRequest(config);
     const response = await getResponse(handlers, request);
@@ -57,9 +57,4 @@ function createMockAxiosAdapter(): AxiosAdapter {
 
     return axiosResponse;
   };
-}
-
-/** Fulfill `/api` calls in-process so login works on Vercel without a Service Worker. */
-export function installAxiosMockAdapter(): void {
-  setMockAdapter(createMockAxiosAdapter());
 }

@@ -1,8 +1,9 @@
-import axios, { type AxiosAdapter, type AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
+import axios, { type AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 import { env } from '@/shared/config/env';
 import type { ApiError } from '@/shared/types/api';
 import { tokenStore } from './token';
 import { requestContext } from './request-context';
+import { createMockAxiosAdapter } from '@/mocks/axios-adapter';
 
 /** Type guard for our normalized error shape. */
 export function isApiError(value: unknown): value is ApiError {
@@ -43,25 +44,15 @@ function normalizeError(error: AxiosError<BackendErrorBody>): ApiError {
   return { status: 0, code: 'client_error', message: error.message ?? 'Unexpected error' };
 }
 
-/** Optional in-process adapter (mock API). Set from the app entry before any requests. */
-let mockAdapter: AxiosAdapter | undefined;
-
-export function setMockAdapter(adapter: AxiosAdapter): void {
-  mockAdapter = adapter;
-  apiClient.defaults.adapter = adapter;
-}
-
 function createApiClient(): AxiosInstance {
   const instance = axios.create({
     baseURL: env.apiBaseUrl,
     headers: { 'Content-Type': 'application/json' },
     timeout: 15_000,
+    ...(import.meta.env.MODE === 'test' ? {} : { adapter: createMockAxiosAdapter() }),
   });
 
   instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    if (mockAdapter) {
-      config.adapter = mockAdapter;
-    }
     const token = tokenStore.get();
     if (token) {
       config.headers.set('Authorization', `Bearer ${token}`);
