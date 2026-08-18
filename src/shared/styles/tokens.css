@@ -1,0 +1,75 @@
+/**
+ * Semantic design tokens.
+ * Colors are HSL channels so Tailwind alpha (`/ <alpha-value>`) works and
+ * light/dark themes swap by re-declaring the same variable names.
+ */
+:root {
+  --bg: 0 0% 100%;
+  --bg-subtle: 220 20% 98%;
+  --bg-muted: 220 16% 95%;
+  --surface: 0 0% 100%;
+  --surface-hover: 220 20% 97%;
+  --border: 220 16% 90%;
+  --border-strong: 220 14% 82%;
+  --text: 222 34% 14%;
+  --text-muted: 220 12% 42%;
+  --text-subtle: 220 10% 56%;
+
+  --primary: 221 83% 53%;
+  --primary-hover: 221 83% 46%;
+  --primary-fg: 0 0% 100%;
+
+  --success: 152 60% 36%;
+  --success-fg: 0 0% 100%;
+  --warning: 35 92% 45%;
+  --warning-fg: 0 0% 100%;
+  --danger: 356 72% 50%;
+  --danger-fg: 0 0% 100%;
+  --info: 210 88% 48%;
+  --info-fg: 0 0% 100%;
+
+  --ring: 221 83% 53%;
+  --shadow: 222 47% 20%;
+
+  /* Chart series (color-blind conscious ordering). */
+  --chart-1: 221 83% 53%;
+  --chart-2: 152 60% 40%;
+  --chart-3: 35 92% 50%;
+  --chart-4: 280 60% 55%;
+  --chart-5: 190 80% 42%;
+}
+
+.dark {
+  --bg: 222 30% 8%;
+  --bg-subtle: 222 26% 11%;
+  --bg-muted: 222 22% 15%;
+  --surface: 222 26% 12%;
+  --surface-hover: 222 22% 16%;
+  --border: 220 16% 22%;
+  --border-strong: 220 14% 32%;
+  --text: 220 20% 96%;
+  --text-muted: 220 12% 68%;
+  --text-subtle: 220 10% 52%;
+
+  --primary: 217 91% 60%;
+  --primary-hover: 217 91% 67%;
+  --primary-fg: 222 47% 11%;
+
+  --success: 152 55% 48%;
+  --success-fg: 222 47% 11%;
+  --warning: 35 92% 58%;
+  --warning-fg: 222 47% 11%;
+  --danger: 356 78% 62%;
+  --danger-fg: 222 47% 11%;
+  --info: 210 90% 62%;
+  --info-fg: 222 47% 11%;
+
+  --ring: 217 91% 60%;
+  --shadow: 0 0% 0%;
+
+  --chart-1: 217 91% 63%;
+  --chart-2: 152 55% 52%;
+  --chart-3: 35 92% 60%;
+  --chart-4: 280 65% 68%;
+  --chart-5: 190 80% 55%;
+}
