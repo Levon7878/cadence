@@ -1,23 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Settings, User } from 'lucide-react';
-import { useQueryClient } from '@tanstack/react-query';
+import { Settings, User } from 'lucide-react';
 import { Avatar, DropdownMenu } from '@/shared/ui';
 import { ROLE_META } from '@/shared/lib/permissions';
 import { useSessionStore } from '@/entities/session';
 
 export function UserMenu() {
   const user = useSessionStore((s) => s.user);
-  const clear = useSessionStore((s) => s.clear);
   const navigate = useNavigate();
-  const qc = useQueryClient();
 
   if (!user) return null;
-
-  const logout = () => {
-    clear();
-    qc.clear();
-    navigate('/login', { replace: true });
-  };
 
   return (
     <DropdownMenu
@@ -38,7 +29,6 @@ export function UserMenu() {
       items={[
         { label: 'Profile', icon: <User />, onSelect: () => navigate('/settings/profile') },
         { label: 'Settings', icon: <Settings />, onSelect: () => navigate('/settings') },
-        { label: 'Sign out', icon: <LogOut />, danger: true, separatorBefore: true, onSelect: logout },
       ]}
     />
   );
