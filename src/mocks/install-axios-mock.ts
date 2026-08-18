@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosHeaders } from 'axios';
 import type { AxiosAdapter, InternalAxiosRequestConfig } from 'axios';
 import { getResponse } from 'msw';
-import { apiClient } from '@/shared/api/client';
+import { setMockAdapter } from '@/shared/api/client';
 import { handlers } from './handlers';
 
 function toFetchRequest(config: InternalAxiosRequestConfig): Request {
@@ -61,5 +61,5 @@ function createMockAxiosAdapter(): AxiosAdapter {
 
 /** Fulfill `/api` calls in-process so login works on Vercel without a Service Worker. */
 export function installAxiosMockAdapter(): void {
-  apiClient.defaults.adapter = createMockAxiosAdapter();
+  setMockAdapter(createMockAxiosAdapter());
 }
