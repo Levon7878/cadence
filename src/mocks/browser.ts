@@ -5,6 +5,7 @@ export const worker = setupWorker(...handlers);
 
 export async function startMockWorker() {
   await worker.start({
+    serviceWorker: { url: '/mockServiceWorker.js' },
     onUnhandledRequest(request, print) {
       const { pathname, hostname } = new URL(request.url);
       if (hostname !== window.location.hostname) return;
